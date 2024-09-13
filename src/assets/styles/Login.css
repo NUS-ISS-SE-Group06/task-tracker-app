@@ -1,0 +1,116 @@
+
+/* Login.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+    background-size: 75% auto; /* Cover the entire body */
+    background-position: center; /* Center the background image */
+  }
+
+  .login-container {
+    width: 400px; /* Set a fixed width for the login container */
+    padding: 40px; /* Add padding for content spacing */
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+    background-color: rgba(255, 255, 255, 0.8); /* Set background color for the login form */
+    border-radius: 10px; /* Add border radius for rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+
+  }
+.form-group {
+    margin-bottom: 20px;
+    padding: 20px 20px 0 0;
+}
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .tabs button {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .tabs button.active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+
+  .error{
+      color: red;
+  }
+
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+      margin-top:10px;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  h2{
+      color:#0056b3;
+  }
+  ul{
+      display: inline-flex;
+      list-style-type: none;
+      padding: 10px;
+  }
+  li{
+      display: list-item;
+      padding: 5px;
+  }
+  li a{
+      color: #0056b3;
+      font-size: initial;
+      font-family: ui-sans-serif;
+  }
+  li a:hover{
+      color: blueviolet;
+  }
+  .response-container p,pre{
+    color: red;
+    font-weight: bold;
+  }
+  .success{
+    color: green;
+    background-color: lightyellow;
+    padding: 8px;
+    margin: 5px;    
+    border: 1px solid;
+    display: inline-block;
+  }
+
+  .login-container .success-message{
+    color:darkgreen;
+  }
+
+  .login-container .error-message{
+    color: red;
+  }
