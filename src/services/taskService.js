@@ -1,15 +1,16 @@
-import { BASE_URL } from "../components/common/Constants";
+import { TM_URL, BASE_URL } from "../components/common/Constants";
 import { getCookieValue } from './cookieService';
 
  const fetchTaskList = async () => {
     try {
         const accessToken = getCookieValue('authToken');
       
-        const response = await fetch(BASE_URL + "/taskinfo/tasklist", {
+        const response = await fetch(TM_URL + "/taskinfo/tasklist", {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
-            }
+            },
+              credentials: 'include'
         });
 
         if (!response.ok) {
@@ -28,7 +29,7 @@ const deleteTask = async(taskId) =>{
 
     try{
         
-        const response = await fetch(BASE_URL + "/taskinfo/delete/"+taskId, {
+        const response = await fetch(TM_URL + "/taskinfo/delete/"+taskId, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -59,7 +60,7 @@ const editTask = async(taskId, taskData) => {
         // Convert taskData to JSON string
         const requestBody = JSON.stringify(taskData);
         
-        const response = await fetch(BASE_URL + "/taskinfo/update/"+taskId, {
+        const response = await fetch(TM_URL + "/taskinfo/update/"+taskId, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -87,7 +88,7 @@ const createTask = async (taskData) => {
     const accessToken = getCookieValue('authToken');
     try {
         const requestBody = JSON.stringify(taskData);
-        const response = await fetch(BASE_URL + "/taskinfo/create", {
+        const response = await fetch(TM_URL + "/taskinfo/create", {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -116,7 +117,8 @@ const fetchUserList = async (role) => {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json'
-                }
+                },
+                  credentials: 'include'
             });  
           if (!response.ok) {
             throw new Error("Failed to fetch user list");

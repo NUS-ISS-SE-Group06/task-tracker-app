@@ -1,10 +1,10 @@
-import { BASE_URL } from "../components/common/Constants";
+import { TM_URL } from "../components/common/Constants";
 import { getCookieValue } from './cookieService';
 
  const fetchCommentList = async (taskId) => {
     const accessToken = getCookieValue('authToken');
     try {
-        const response = await fetch(BASE_URL + "/comment-info/comment-list/"+taskId, {
+        const response = await fetch(TM_URL + "/comment-info/comment-list/"+taskId, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ const createComment = async(commentData) => {
         const requestBody = JSON.stringify(commentData);
         console.log(requestBody);
         
-        const response = await fetch(BASE_URL + "/comment-info/create", {
+        const response = await fetch(TM_URL + "/comment-info/create", {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
