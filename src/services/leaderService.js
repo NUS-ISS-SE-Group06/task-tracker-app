@@ -1,11 +1,11 @@
-import { BASE_URL } from "../components/common/Constants";
+import { TM_URL } from "../components/common/Constants";
 import { getCookieValue } from './cookieService';
 
  const fetchLeaderBoard = async () => {
     try {
         const accessToken = getCookieValue('authToken');
       
-        const response = await fetch(BASE_URL + "/taskinfo/leaderboard", {
+        const response = await fetch(TM_URL + "/taskinfo/leaderboard", {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
