@@ -9,7 +9,7 @@ on:
   ##
   #push:
   #  branches:
-  #    - main
+  #    - mainx
   #  paths-ignore:
   #    - '.github/**'
   #    - 'public/**'
@@ -62,61 +62,28 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
 
-  #uat_deploy:
-  #  needs: code_scan
-  #  runs-on: ubuntu-latest
-  #  environment:
-  #    name: github-pages
-  #    url: ${{ steps.deployment.outputs.page_url }}
-  #  
-  #  steps:
-  #    - name: Checkout Source Codes
-  #      uses: actions/checkout@v4
-  #      with: 
-  #        ref: main
+  
 
-  #    - name: Use Node.js 21.x
-  #      uses: actions/setup-node@v4
-  #      with:
-  #        node-version: '21.x'
-  #        cache: 'npm'
+  build_docker_image:
+    needs: test_build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Codes
+        uses: actions/checkout@v4
+        with:
+          ref: main
 
-  #    - run: npm ci
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
 
-  #    - run: npm run build --if-present
-
-  #    - name: List Contents of build Directory
-  #      run: ls -R build  
-
-  #    - name: Upload Pages artifact
-  #      uses: actions/upload-pages-artifact@v3
-  #      with:  
-  #        path: build
-
-  #    - name: Deploy to GitHub Pages
-  #      id: deployment
-  #      uses: actions/deploy-pages@v4
-
-build_docker_image:
-  needs: test_build
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout Source Codes
-      uses: actions/checkout@v4
-      with:
-        ref: main
-
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
-
-    - name: Build and push Docker image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        # Log in to Docker Hub using the username and password stored in GitHub Secrets
-        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+      - name: Build and push Docker image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          # Log in to Docker Hub using the username and password stored in GitHub Secrets
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           
-        # Build and push the Docker image for multiple platforms (e.g., amd64 and arm64)
-        docker buildx build --platform linux/amd64,linux/arm64 -t $DOCKER_USERNAME/task-tracker-app-prd:latest --push .
+          # Build and push the Docker image for multiple platforms (e.g., amd64 and arm64)
+          docker buildx build --platform linux/amd64,linux/arm64 -t $DOCKER_USERNAME/task-tracker-app-prd:latest --push .
         
