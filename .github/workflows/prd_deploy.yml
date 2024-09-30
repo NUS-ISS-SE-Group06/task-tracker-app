@@ -1,14 +1,16 @@
 name: prd_deploy
 on:
-  push:
-    branches:
-      - dev
-    paths-ignore:
-      - '.github/**'
-      - 'public/**'
-      - 'README.md' 
-      - 'sonar-project.properties'
-  workflow_dispatch:   
+  # trigger for deployment
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  #   paths-ignore:
+  #     - '.github/**'
+  #     - 'public/**'
+  #     - 'README.md' 
+  #     - 'sonar-project.properties'
+  # workflow_dispatch:   
 permissions:
   contents: read
   pages: write
