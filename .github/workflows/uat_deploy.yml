@@ -1,4 +1,4 @@
-name: uat_test_build
+name: uat_deploy
 on:
   # trigger for CI
   workflow_dispatch:
@@ -62,5 +62,38 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
 
-        
+  uat_deploy:
+    needs: code_scan
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: Checkout Source Codes
+        uses: actions/checkout@v4
+        with: 
+          ref: main
+
+      - name: Use Node.js 21.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21.x'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: npm run build --if-present
+
+      - name: List Contents of build Directory
+        run: ls -R build  
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:  
+          path: build
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
         
