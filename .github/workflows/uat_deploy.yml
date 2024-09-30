@@ -72,11 +72,11 @@ jobs:
       - name: Checkout Source Codes
         uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: main
           
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/task-tracker:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/task-tracker-app-uat:latest .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
           docker push  ${{ secrets.DOCKER_USERNAME }}/task-tracker-app-uat:latest
      
