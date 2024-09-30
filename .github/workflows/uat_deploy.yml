@@ -7,14 +7,14 @@ on:
   # The unit-test : indicating whether your functionalities are not breaking.
   # The Sonar : indicating whether your code commits are not violating code scan rules.
   ##
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '.github/**'
-      - 'public/**'
-      - 'README.md' 
-      - 'sonar-project.properties' 
+  #push:
+  #  branches:
+  #    - main
+  #  paths-ignore:
+  #    - '.github/**'
+  #    - 'public/**'
+  #    - 'README.md' 
+  #    - 'sonar-project.properties' 
 permissions:
   contents: read
   pages: write
