@@ -1,4 +1,4 @@
-name: dev_test_build
+name: uat_test_build
 on:
   # trigger for CI
   workflow_dispatch:
