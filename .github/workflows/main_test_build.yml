@@ -1,0 +1,66 @@
+name: dev_test_build
+on:
+  # trigger for CI
+  workflow_dispatch:
+  # This workflow is automatically triggered upon a push request to the development branch. 
+  # The test-build : indicating whether your code commits are not breaking during compilation.
+  # The unit-test : indicating whether your functionalities are not breaking.
+  # The Sonar : indicating whether your code commits are not violating code scan rules.
+  ##
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - 'public/**'
+      - 'README.md' 
+      - 'sonar-project.properties' 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+  
+jobs:
+  test_build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [21.x]     
+    steps:
+      - name: Checkout Source Codes
+        uses: actions/checkout@v4
+        with: 
+          ref: main
+          
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          
+      - run: npm ci
+      
+      - run: npm run build --if-present
+      
+      - run: CI=true npm test
+
+  code_scan:
+    needs: test_build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Codes
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Analyze on SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
+
+        
+        
