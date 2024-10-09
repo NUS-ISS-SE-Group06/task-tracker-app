@@ -9,7 +9,7 @@ on:
   ##
   push:
     branches:
-      - main
+      - dev
     paths-ignore:
       - '.github/**'
       - 'public/**'
@@ -33,7 +33,7 @@ jobs:
       - name: Checkout Source Codes
         uses: actions/checkout@v4
         with: 
-          ref: main
+          ref: dev
           
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
