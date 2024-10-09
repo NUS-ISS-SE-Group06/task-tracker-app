@@ -65,7 +65,6 @@ jobs:
   
 
   build_docker_image:
-    if: github.ref == 'refs/heads/main'
     needs: code_scan
     runs-on: ubuntu-latest
     steps:
