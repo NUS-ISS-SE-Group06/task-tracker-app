@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment
+  name: task-tracker-app-deployment
+  namespace: prod  # Namespace for Production
 spec:
-  replicas: 2
+  replicas: 3  # Increase replicas for production if needed
   selector:
     matchLabels:
       app: task-tracker-app
@@ -16,4 +17,4 @@ spec:
         - name: task-tracker-app
           image: brittajaison/task-tracker-app:latest
           ports:
-            - containerPort: 80
+            - containerPort: 3000  # Ensure this matches the service targetPort
