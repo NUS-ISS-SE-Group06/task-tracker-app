@@ -16,5 +16,6 @@ spec:
       containers:
         - name: task-tracker-app
           image: brittajaison/task-tracker-app:latest
+        automountServiceAccountToken: false
           ports:
             - containerPort: 3000  # Ensure this matches the service targetPort
