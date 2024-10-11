@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment
+  name: task-tracker-app-deployment
+  namespace: uat  # Namespace for UAT
 spec:
   replicas: 2
   selector:
@@ -15,5 +16,9 @@ spec:
       containers:
         - name: task-tracker-app
           image: brittajaison/task-tracker-app:latest
+        automountServiceAccountToken: false
+        resources:
+          limits:
+            ephemeral-storage: "2Gi"
           ports:
-            - containerPort: 80
+            - containerPort: 3000  # Ensure this matches the service targetPort
