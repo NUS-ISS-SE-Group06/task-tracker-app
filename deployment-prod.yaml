@@ -17,5 +17,8 @@ spec:
         - name: task-tracker-app
           image: brittajaison/task-tracker-app:latest
         automountServiceAccountToken: false
+        resources:
+          limits:
+            ephemeral-storage: "2Gi"
           ports:
             - containerPort: 3000  # Ensure this matches the service targetPort
