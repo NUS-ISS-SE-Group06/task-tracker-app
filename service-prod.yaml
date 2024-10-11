@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-tracker-app-service
+  namespace: prod  # Namespace for Production
+spec:
+  selector:
+    app: task-tracker-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000  # Maps to the container port
+  type: NodePort

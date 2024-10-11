@@ -83,14 +83,79 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 Docker env to run in local:
 ### to build the image
-docker build -t task-tracker:latest .
+docker build -t task-tracker-app:latest .
 ### to run the docker image
-docker run -d -p 8000:3000 task-tracker:latest
+docker run -d -p 8000:3000 task-tracker-app:latest
 ### to check if the container is running
 docker ps
 ### in case to ssh inside the container
-docker run --rm -it task-tracker:latest sh
+docker run --rm -it task-tracker-app:latest sh
 ### list the images
 docker images
 ### application accessible at
 http://localhost:8000/
+
+# Kubernetes Deployment
+
+## Installation of the minikube
+
+brew install minikube
+
+OR 
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-arm64
+
+## Start Minikube
+minikube start --driver=docker
+
+## Check Status of the minikube
+minikube satus
+
+## Get Minikube IP
+minikube ip
+
+## Minikube dashboard
+minikube dashboard
+
+## To use docker inside minikube
+minikube docker-env
+eval $(minikube -p minikube docker-env)
+
+## To create namespace for deployment
+kubectl apply -f uat-namespace.yaml (UAT)
+kubectl apply -f prod-namespace.yaml (PROD)
+
+## To deploy UAT configurations
+kubectl apply -f deployment-uat.yaml
+kubectl apply -f service-uat.yaml
+
+## To deploy production configurations
+kubectl apply -f deployment-prod.yaml
+kubectl apply -f service-prod.yaml
+
+## Access services in different namespaces
+kubectl get deployments -n uat
+kubectl get services -n uat
+
+kubectl get deployments -n prod
+kubectl get services -n prod
+
+# To debug in case the url cannot be browsed
+
+## get the pods
+kubectl get pods
+
+## check the ip
+kubectl exec -it <pod-name> -- curl http://0.0.0.0:3000
+
+## check the service configuration
+kubectl describe service task-tracker-app-service
+
+## if you are runnin in kubernetes and want to access the app locally
+
+kubectl port-forward pod/<pod-name> 3000:3000
+
+## app should be accessible at 
+http://localhost:3000/
+
+
