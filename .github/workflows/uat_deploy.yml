@@ -96,7 +96,7 @@ jobs:
 
     # Get Kubernetes configuration from DigitalOcean
       - name: Retrieve Kubernetes credentials
-        run: doctl kubernetes cluster kubeconfig save <your-cluster-name>
+        run: doctl kubernetes cluster kubeconfig save 77c86425-2a82-4012-beda-18a1a12979ae
 
     # Deploy the updated Kubernetes resources
       - name: Apply Kubernetes manifests
