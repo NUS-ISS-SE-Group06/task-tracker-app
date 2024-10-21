@@ -87,7 +87,7 @@ jobs:
 
     # Authenticate doctl with DigitalOcean API token
       - name: Authenticate with DigitalOcean
-        run: doctl auth init -t ${{ secrets.DO_API_TOKEN }}
+        run: doctl auth init -t ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
     # Get Kubernetes configuration from DigitalOcean
       - name: Retrieve Kubernetes credentials
