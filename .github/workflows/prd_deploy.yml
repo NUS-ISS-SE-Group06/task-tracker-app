@@ -76,16 +76,10 @@ jobs:
           
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/task-tracker-app-prd:latest .
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
-          docker push  ${{ secrets.DOCKER_USERNAME }}/task-tracker-app-prd:latest
+          docker build -t ${{secrets.DOCKER_USERNAME}}/task-tracker-app:latest .
+          docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{ secrets.DOCKER_TOKEN }}
+          docker push  ${{secrets.DOCKER_USERNAME}}/task-tracker-app:latest
 
-       # Build and push Docker image
-      - name: Build and push Docker image
-        run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/task-tracker-app-prd:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/task-tracker-app-prd:latest
-     
 # Install doctl (DigitalOcean CLI)
       - name: Install DigitalOcean CLI
         run: |
