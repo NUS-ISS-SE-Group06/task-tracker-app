@@ -84,6 +84,9 @@ jobs:
 
     # Install doctl (DigitalOcean CLI)  
   digital_ocean_deployment:
+    needs: build_docker_image
+    runs-on: ubuntu-latest
+    
     steps:
       - name: Install DigitalOcean CLI
         run: |
