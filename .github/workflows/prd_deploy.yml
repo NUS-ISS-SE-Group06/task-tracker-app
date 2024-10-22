@@ -79,14 +79,16 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker buildx build --platform linux/amd64,linux/arm64 -t $DOCKER_USERNAME/nus-iss-task-tracker:latest --push .
+          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/task-tracker:${{ github.sha }} .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          docker push  ${{ secrets.DOCKER_HUB_USERNAME }}/task-tracker:${{ github.sha }}
+    
 
     # Install doctl (DigitalOcean CLI)  
   digital_ocean_deployment:
     needs: build_docker_image
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Install DigitalOcean CLI
         run: |
@@ -108,6 +110,6 @@ jobs:
     # Deploy the updated Kubernetes resources
       - name: Apply Kubernetes manifests
         run: |
-          kubectl set image deployment/app-deployment app-container=${{ secrets.DOCKERHUB_USERNAME }}/task-tracker-app:latest
+          kubectl set image deployment/app-deployment app-container=${{ secrets.DOCKERHUB_USERNAME }}/task-tracker-app:${{ github.sha }}
           kubectl apply -f ./deployment-uat.yaml
           kubectl apply -f ./service-uat.yaml
