@@ -110,6 +110,6 @@ jobs:
     # Deploy the updated Kubernetes resources
       - name: Apply Kubernetes manifests
         run: |
-          kubectl set image deployment/app-deployment app-container=${{ secrets.DOCKERHUB_USERNAME }}/task-tracker-app:${{ github.sha }}
-          kubectl apply -f ./deployment-uat.yaml
-          kubectl apply -f ./service-uat.yaml
+          sed -i "s|image: $DOCKER_USERNAME/task-tracker-app:.*|image: $DOCKER_USERNAME/task-tracker-app:${{ github.sha }}|" deployment-prod.yaml
+          kubectl apply -f deployment-prod.yaml
+          kubectl apply -f service-prod.yaml

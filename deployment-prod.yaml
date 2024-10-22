@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: task-tracker-app-deployment
-  namespace: prod  # Namespace for Production
+  namespace: prd  # Namespace for Production
 spec:
   replicas: 3  # Increase replicas for production if needed
   selector:
@@ -15,10 +15,10 @@ spec:
     spec:
       containers:
         - name: task-tracker-app
-          image: brittajaison/task-tracker-app:latest
-        automountServiceAccountToken: false
-        resources:
-          limits:
-            ephemeral-storage: "2Gi"
+          image: nusissgroup6/task-tracker-app:latest
+          automountServiceAccountToken: false
+          resources:
+            limits:
+              ephemeral-storage: "2Gi"
           ports:
             - containerPort: 3000  # Ensure this matches the service targetPort
