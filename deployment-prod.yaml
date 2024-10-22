@@ -13,10 +13,10 @@ spec:
       labels:
         app: task-tracker-app
     spec:
+      automountServiceAccountToken: false  # Move this here at the pod level
       containers:
         - name: task-tracker-app
           image: nusissgroup6/task-tracker-app:latest
-          automountServiceAccountToken: false
           resources:
             limits:
               ephemeral-storage: "2Gi"
