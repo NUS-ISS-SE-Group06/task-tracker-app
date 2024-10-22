@@ -81,6 +81,7 @@ jobs:
           docker push  ${{secrets.DOCKER_USERNAME}}/task-tracker-app:latest
 
     # Install doctl (DigitalOcean CLI)  
+  digital_ocean_deployment:
     steps:
       - name: Install DigitalOcean CLI
         run: |
