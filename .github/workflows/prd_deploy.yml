@@ -90,6 +90,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Source Codes
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          
       - name: Install DigitalOcean CLI
         run: |
            curl -sL https://github.com/digitalocean/doctl/releases/download/v1.83.0/doctl-1.83.0-linux-amd64.tar.gz | tar -xzv
