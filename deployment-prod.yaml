@@ -21,4 +21,4 @@ spec:
             limits:
               ephemeral-storage: "2Gi"
           ports:
-            - containerPort: 3000  # Ensure this matches the service targetPort
+            - containerPort: 3000  # Ensure this matches the service targetPorts
