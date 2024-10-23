@@ -79,9 +79,9 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/task-tracker:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/task-tracker-app:${{ github.sha }} .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push  ${{ secrets.DOCKER_USERNAME }}/task-tracker:${{ github.sha }}
+          docker push  ${{ secrets.DOCKER_USERNAME }}/task-tracker-app:${{ github.sha }}
     
 
     # Install doctl (DigitalOcean CLI)  
