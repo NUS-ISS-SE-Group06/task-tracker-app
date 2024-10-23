@@ -33,7 +33,7 @@ jobs:
       - name: Checkout Source Codes
         uses: actions/checkout@v4
         with: 
-          ref: dev
+          ref: main
           
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -79,42 +79,9 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/task-tracker-app-uat:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/task-tracker:${{ github.sha }} .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push  ${{ secrets.DOCKER_USERNAME }}/task-tracker-app-uat:${{ github.sha }}
+          docker push  ${{ secrets.DOCKER_USERNAME }}/task-tracker:${{ github.sha }}
     
-
-    # Install doctl (DigitalOcean CLI)  
-  digital_ocean_deployment:
-    needs: build_docker_image
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Source Codes
-        uses: actions/checkout@v4
-        with:
-          ref: main
           
-      - name: Install DigitalOcean CLI
-        run: |
-           curl -sL https://github.com/digitalocean/doctl/releases/download/v1.83.0/doctl-1.83.0-linux-amd64.tar.gz | tar -xzv
-           sudo mv doctl /usr/local/bin
-
-    # Authenticate doctl with DigitalOcean API token
-      - name: Authenticate with DigitalOcean
-        run: doctl auth init -t ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-     # Create .kube directory manually
-      - name: Create kube directory
-        run: mkdir -p /home/runner/.kube
-
-    # Get Kubernetes configuration from DigitalOcean
-      - name: Retrieve Kubernetes credentials
-        run: doctl kubernetes cluster kubeconfig save 77c86425-2a82-4012-beda-18a1a12979ae
-
-    # Deploy the updated Kubernetes resources
-      - name: Apply Kubernetes manifests
-        run: |
-          sed -i "s|image: $DOCKER_USERNAME/task-tracker-app-uat:.*|image: $DOCKER_USERNAME/task-tracker-app-uat:${{ github.sha }}|" deployment-uat.yaml
-          kubectl apply -f deployment-uat.yaml
-          kubectl apply -f service-uat.yaml
+ 
