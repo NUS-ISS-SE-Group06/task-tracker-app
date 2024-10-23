@@ -18,7 +18,11 @@ spec:
         - name: task-tracker-app
           image: nusissgroup6/task-tracker-app:latest
           resources:
+            requests:
+              ephemeral-storage: "1Gi"  # Minimum storage requested
+              memory: "512Mi"           # Minimum memory requested
             limits:
-              ephemeral-storage: "2Gi"
+              ephemeral-storage: "2Gi"  # Maximum storage limit
+              memory: "1Gi"             # Maximum memory limit
           ports:
             - containerPort: 3000  # Ensure this matches the service targetPorts
