@@ -17,6 +17,7 @@ spec:
       containers:
         - name: task-tracker-app
           image: nusissgroup6/task-tracker-app:latest
+          imagePullPolicy: Always
           resources:
             requests:
               ephemeral-storage: "1Gi"  # Minimum storage requested
