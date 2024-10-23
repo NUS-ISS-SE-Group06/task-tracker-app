@@ -1,24 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: task-tracker-app-deployment
+  name: task-tracker-app-uat-deployment
   namespace: uat  # Namespace for UAT
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: task-tracker-app
+      app: task-tracker-app-uat
   template:
     metadata:
       labels:
-        app: task-tracker-app
+        app: task-tracker-app-uat
     spec:
+      automountServiceAccountToken: false
       containers:
-        - name: task-tracker-app
-          image: brittajaison/task-tracker-app:latest
-        automountServiceAccountToken: false
-        resources:
-          limits:
-            ephemeral-storage: "2Gi"
+        - name: task-tracker-app-uat
+          image: nusissgroup6/task-tracker-app-uat:latest
+          resources:
+            requests:
+              ephemeral-storage: "1Gi"  # Minimum storage requested
+              memory: "512Mi"           # Minimum memory requested
+            limits:
+              ephemeral-storage: "2Gi"  # Maximum storage limit
+              memory: "1Gi"             # Maximum memory limit
           ports:
             - containerPort: 3000  # Ensure this matches the service targetPort
