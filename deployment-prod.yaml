@@ -16,7 +16,7 @@ spec:
       automountServiceAccountToken: false  # Move this here at the pod level
       containers:
         - name: task-tracker-app
-          image: nusissgroup6/task-tracker-app:4e2e741e0c3227aceb176c2e4aa451af9262d408
+          image: nusissgroup6/task-tracker-app:a48488f079fa882a946ca24d9942e039401fcb7e
           imagePullPolicy: Always
           resources:
             requests:
