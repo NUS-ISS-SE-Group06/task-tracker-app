@@ -4,7 +4,7 @@ metadata:
   name: task-tracker-app-deployment
   namespace: prd  # Namespace for Production
 spec:
-  replicas: 3  # Increase replicas for production if needed
+  replicas: 2  # Increase replicas for production if needed
   selector:
     matchLabels:
       app: task-tracker-app
