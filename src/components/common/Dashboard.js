@@ -281,9 +281,9 @@ const Dashboard = () => {
                         <li>
                             <Link onClick={() => setView('table')} >Task Management</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link onClick={() => setView('leader')}>LeaderBoard</Link>
-                        </li>
+                        </li> */}
                         <li>
                             <Link onClick={handleLogout} to="/logout">Logout</Link>
                         </li>
@@ -295,9 +295,9 @@ const Dashboard = () => {
                         <li>
                             <Link to="/tasklist">Task List</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to="/leaderboard">LeaderBoard</Link>
-                        </li>
+                        </li> */}
                         <li>
                             <Link onClick={handleLogout}>Logout</Link>
                         </li>
