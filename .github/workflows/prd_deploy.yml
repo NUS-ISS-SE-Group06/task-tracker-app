@@ -112,9 +112,13 @@ jobs:
       - name: Retrieve Kubernetes credentials
         run: doctl kubernetes cluster kubeconfig save 77c86425-2a82-4012-beda-18a1a12979ae
 
+      - name: Update Image Tag in Deployment YAML
+        run: |
+          sed -i.bak "s|image: nusissgroup6/task-tracker-app:.*|image: nusissgroup6/task-tracker-app:${{ github.sha }}|" deployment-prod.yaml
+          cat deployment-prod.yaml | grep "image:"
+
     # Deploy the updated Kubernetes resources
       - name: Apply Kubernetes manifests
         run: |
-          sed -i "s|image: $DOCKER_USERNAME/task-tracker-app:.*|image: $DOCKER_USERNAME/task-tracker-app:${{ github.sha }}|" deployment-prod.yaml
           kubectl apply -f deployment-prod.yaml
           kubectl apply -f service-prod.yaml
