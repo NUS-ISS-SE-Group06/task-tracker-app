@@ -85,35 +85,34 @@ export const Modal = ({ closeModal, onSubmit, defaultValue, userRole }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    console.log("Selected target name :", name );
-    console.log("Selected target value:", value );
-
+    console.log("Selected target name :", name);
+    console.log("Selected target value:", value);
 
     if (name === "taskAssignee") {
-      if (userList.length === 0) {
-        console.log("User list is empty");
-        return;
-      }
-      console.log("Selected userlist:", userList);
+        if (userList.length === 0) {
+            console.log("User list is empty");
+            return;
+        }
+        console.log("Selected userList:", userList);
 
+        let selectedUser = userList.find(user => user.userId === value);
+        console.log("Selected user ID :", selectedUser ? selectedUser.userId : "None found");
 
-       let selectedUser = userList.find(user => user.userId === value);
-      selectedUser = 1;
-      console.log("Selected user ID :", selectedUser);
-     // let userId = selectedUser ? selectedUser.userId : "";
+        // Uncomment the line below if you want to use userId further
+        // let userId = selectedUser ? selectedUser.userId : "";
 
- 
-   
-      setFormState({ ...formState, [name]: selectedUser });
-    
-
-      // Use a function to ensure the latest state is used for updates
-      setFormState(prevState => ({ ...prevState, [name]: selectedUser }));
+        setFormState(prevState => ({
+            ...prevState,
+            [name]: selectedUser ? selectedUser : "" // Set selectedUser or fallback to ""
+        }));
     } else {
-      // This also ensures that the latest state is used for updates
-      setFormState(prevState => ({ ...prevState, [name]: value }));
+        // Update other fields as usual
+        setFormState(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     }
-  };
+};
 
 
   const handleSubmit = async (e) => {
