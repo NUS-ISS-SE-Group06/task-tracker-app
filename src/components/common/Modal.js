@@ -193,11 +193,11 @@ export const Modal = ({ closeModal, onSubmit, defaultValue, userRole }) => {
       <div className="modal">
         <form>
           <div className="form-group">
-            <label htmlFor="taskName">Task Name</label>
+            <label htmlFor="taskName">Task Name<font color="red">*</font></label>
             <input name="taskName" onChange={handleChange} value={formState.taskName} readOnly={!isAdmin} />
           </div>
           <div className="form-group">
-            <label htmlFor="taskDescription">Task Description</label>
+            <label htmlFor="taskDescription">Task Description<font color="red">*</font></label>
             <textarea name="taskDescription" onChange={handleChange} value={formState.taskDescription} readOnly={!isAdmin} />
           </div>
           {isAdmin && <div className="form-group">
@@ -219,7 +219,7 @@ export const Modal = ({ closeModal, onSubmit, defaultValue, userRole }) => {
 
           </div>}
           {isAdmin && <div className="form-group">
-            <label htmlFor="taskDueDate">Task Due Date</label>
+            <label htmlFor="taskDueDate">Task Due Date<font color="red">*</font></label>
             <input type="date" name="taskDueDate" onChange={handleChange} value={formState.taskDueDate} readOnly={!isAdmin} />
           </div>}
           <div className="form-group">
@@ -236,7 +236,7 @@ export const Modal = ({ closeModal, onSubmit, defaultValue, userRole }) => {
           </div>
           {formState.taskId && (
             <div className="form-group" >
-              <label htmlFor="taskComment">Comment</label>
+              <label htmlFor="taskComment">Comment <font color="red">*</font></label>
               <textarea name="taskComment" onChange={handleChange} value={formState.taskComment} />
               {formState.taskCommentHistory && (
                 <label dangerouslySetInnerHTML={{ __html: formState.taskCommentHistory }} ></label>
