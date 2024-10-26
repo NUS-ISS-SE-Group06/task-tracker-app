@@ -95,16 +95,23 @@ export const Modal = ({ closeModal, onSubmit, defaultValue, userRole }) => {
         }
         console.log("Selected userList:", userList);
 
-        let selectedUser = userList.find(user => user.userId === value);
-        console.log("Selected user ID :", selectedUser ? selectedUser.userId : "None found");
 
-        // Uncomment the line below if you want to use userId further
-        // let userId = selectedUser ? selectedUser.userId : "";
+      // const selectedUser = userList.find(user => user.userId === value);
+     //  const userId = selectedUser ? selectedUser.userId : "";
+     // selectedUser = 1;
+     // console.log("Selected user ID :", selectedUser);
+     // let userId = selectedUser ? selectedUser.userId : "";
 
-        setFormState(prevState => ({
-            ...prevState,
-            [name]: selectedUser ? selectedUser : "" // Set selectedUser or fallback to ""
-        }));
+ 
+   
+     // setFormState({ ...formState, [name]: selectedUser });
+    // Update formState with the selected userId from the dropdown
+    setFormState(prevState => ({ ...prevState, [name]: value }));
+    console.log("Selected user ID:", value);
+
+      // Use a function to ensure the latest state is used for updates
+     // setFormState(prevState => ({ ...prevState, [name]: userId }));
+
     } else {
         // Update other fields as usual
         setFormState(prevState => ({
@@ -197,18 +204,18 @@ export const Modal = ({ closeModal, onSubmit, defaultValue, userRole }) => {
             <label htmlFor="taskAssignee">Task Assignee</label>
             {/* <input name="taskAssignee" onChange={handleChange} value={formState.taskAssignee} readOnly={!isAdmin}/> */}
             <select
-              name="taskAssignee"
-              onChange={handleChange}
-              value={formState.taskAssignee}
-              disabled={!isAdmin}  // Use disabled instead of readOnly for <select>
-            >
-              <option value="">Select Assignee</option>
-              {userList.map(user => (
-                <option key={user.userId} value={user.userId}>
-                  {user.name}
-                </option>
-              ))}
-            </select>
+      name="taskAssignee"
+      onChange={handleChange}
+      value={formState.taskAssignee} // Set the selected value based on userId
+      disabled={!isAdmin} // Use disabled instead of readOnly for <select>
+    >
+      <option value="">Select Assignee</option>
+      {userList.map(user => (
+        <option key={user.userId} value={user.userId}>
+          {user.name} {/* Display the name, while the value is userId */}
+        </option>
+      ))}
+    </select>
 
           </div>}
           {isAdmin && <div className="form-group">
